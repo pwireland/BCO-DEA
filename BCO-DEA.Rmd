@@ -67,14 +67,16 @@ cat(paste(unlist(bco$execution_domain$software_prerequisites$name), bco$executio
 # Import package from BCO
 fileName= bco$execution_domain$software_prerequisites$uri$address[1]
 source(fileName)
-#biocLite("edgeR", type="binary")
-#biocLite("ggplot2")
-#biocLite('statmod')
-#biocLite('pheatmap')
+biocLite("edgeR", type="binary")
+biocLite("ggplot2")
+biocLite('statmod')
+biocLite('pheatmap')
+biocLite('ggfortify')
 library("edgeR")
 library("ggplot2")
 library("pheatmap")
 library("ggfortify")
+library("statmod")
 ```
 
 ```{r echo = FALSE, message=FALSE, warning=FALSE, results ='asis'}
