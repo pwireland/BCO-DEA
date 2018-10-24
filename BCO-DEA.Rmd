@@ -6,7 +6,7 @@ output:
 ---
 ```{r echo = FALSE, results ='asis', message=FALSE, warning=FALSE}
 library(jsonlite)
-jsonFile = "BCO-DEA.json"
+jsonFile = "https://raw.githubusercontent.com/pwireland/BCO-DEA/master/BCO-DEA.json"
 bco <- fromJSON( jsonFile)
 doc_title <- cat(" BCO Example",bco$provenance_domain$name)
 doc_author <- 'Paul Walsh'
