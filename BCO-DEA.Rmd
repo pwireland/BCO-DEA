@@ -1,0 +1,198 @@
+---
+output:
+  html_document: default
+  pdf_document: default
+  word_document: default
+---
+```{r echo = FALSE, results ='asis', message=FALSE, warning=FALSE}
+library(jsonlite)
+jsonFile = "BCO-DEA.json"
+bco <- fromJSON( jsonFile)
+doc_title <- cat(" BCO Example",bco$provenance_domain$name)
+doc_author <- 'Paul Walsh'
+doc_date <- Sys.Date()
+```
+
+---
+title: `r doc_title`
+author: `r doc_author`
+date: `r doc_date`
+output: html_document
+---
+# Bio Compute Objects DEA Example
+## Provenance
+```{r echo = FALSE, results ='asis'}
+cat('* Version:',bco$provenance_domain$version)
+cat('\n* Created:',bco$provenance_domain$created)
+cat('\n* Modified:',bco$provenance_domain$modified)
+cat('\n* Keywords:',paste( unlist(bco$description_domain$keywords$value), collapse=', '))
+cat('\n* Current Status:',bco$provenance_domain$review$status[1])
+cat('\n* Licence:',bco$provenance_domain$license$address)
+```
+
+## Contributers
+```{r echo = FALSE, results ='asis'}
+cat(paste(bco$provenance_domain$contributors$entity$contribution, bco$provenance_domain$contributors$entity$name,  bco$provenance_domain$contributors$entity$affiliation, bco$provenance_domain$contributors$entity$email, sep=', ', collapse='<br>'))
+```
+
+## Review
+```{r echo = FALSE, results ='asis'}
+cat(paste(unlist(bco$provenance_domain$review$comment), bco$provenance_domain$review$reviewer$entity$name,  bco$provenance_domain$review$reviewer$entity$affiliation, bco$provenance_domain$review$reviewer$entity$email, sep=', ', collapse='<br>'))
+```
+
+## Extension
+```{r echo = FALSE, results ='asis'}
+cat('GitHub Repo:',bco$extension_domain$github_extension$github_repository, "<br>")
+cat('GitHub link:',bco$extension_domain$github_extension$github_URL)
+```
+
+### FHIR
+```{r echo = FALSE, results ='asis'}
+cat(paste(unlist(bco$extension_domain$FHIR_extension$FHIRendpoint_Ids), bco$extension_domain$FHIR_extension$FHIRendpoint_Resource,  bco$extension_domain$FHIR_extension$FHIRendpoint_URL, sep=', ', collapse='<br>'))
+```
+
+## Analysis Pipeline Steps
+```{r echo = FALSE, results ='asis'}
+cat(paste(unlist(bco$description_domain$pipeline_steps$tool$step_number), bco$description_domain$pipeline_steps$tool$name,  bco$description_domain$pipeline_steps$tool$description, bco$description_domain$pipeline_steps$tool$version, sep=', ', collapse='<br>'))
+```
+
+### Required Libraries
+This section aids reproducibility by listing required libraries and ensuring that they are loaded. It loads the BioCondoctor package listed in the BCO:
+```{r echo = FALSE, results ='asis'}
+cat(paste(unlist(bco$execution_domain$software_prerequisites$name), bco$execution_domain$software_prerequisites$version, sep=', ', collapse='<br>'))
+```
+
+#### Installation
+```{r echo = FALSE, results='hide', message=FALSE, warning=FALSE}
+# Import package from BCO
+fileName= bco$execution_domain$software_prerequisites$uri$address[1]
+source(fileName)
+#biocLite("edgeR", type="binary")
+#biocLite("ggplot2")
+#biocLite('statmod')
+#biocLite('pheatmap')
+library("edgeR")
+library("ggplot2")
+library("pheatmap")
+library("ggfortify")
+```
+
+```{r echo = FALSE, message=FALSE, warning=FALSE, results ='asis'}
+
+cat("Packages:", paste((.packages()), sep= "," ))
+cat("<br>EdgeR Version:", paste(packageVersion("edgeR") ))
+cat("<br>ggplot2 Version:", paste(packageVersion("ggplot2") ))
+cat("<br>pheatmap Version:", paste(packageVersion("pheatmap") ))
+cat("<br>ggfortify Version:", paste(packageVersion("ggfortify") ))
+```
+
+### Reading input files
+Read files specified in BCO.
+
+#### Reading the clinical data
+Get clinical input file source from BCO:
+```{r echo = FALSE, results='asis', message=FALSE, warning=FALSE}
+fileName= bco$io_domain$input_subdomain$subject$URI$address[2]
+cat(fileName, "<br>")
+clinicalTable = read.table(fileName,header=TRUE,sep = '\t',row.names = 1)
+#clinicalTable = read.table('phenotypical_final.txt',header=TRUE,sep = '\t',row.names = 1)
+# verifying if the table was correctly read. The function allows to see the first 6 rows.
+#head(clinicalTable)
+# Checking the variables
+#summary(clinicalTable)
+```
+
+                           
+#### Reading the gene expression data
+Get gene expression data input file source from BCO:
+```{r echo = FALSE, results='asis', message=FALSE, warning=FALSE}
+fileName= bco$io_domain$input_subdomain$subject$URI$address[1]
+cat(fileName, "<br>")
+exp = read.table(fileName,header=TRUE,sep = '\t',row.names = 1)
+#exp = read.table('countable_final.txt',header=TRUE,sep = '\t',row.names = 1)
+
+#Checking the size of the table
+#dim(exp)
+
+#Checking the first rows
+#head(exp)
+#summary(exp)
+```
+
+## Modeling the data
+Pull the model from the BCO:
+```{r echo = FALSE, results='asis', message=FALSE, warning=FALSE}
+# Two variables were included in the statistical model:
+# 1) the variable of interest - clark_level
+# 2) a source  of variation - tissue site
+variables= bco$parametric_domain$model$factors
+cat(variables, "<br>")
+design <- model.matrix(as.formula(paste("~",variables)), data = clinicalTable)
+```
+
+## Processing the count table
+Get parameters such as counts per million from the BCO.
+```{r echo = FALSE, results='asis', message=FALSE, warning=FALSE}
+# Creating an object that combines the expression data (count table, named 'exp') and clinical data. Required for analysing with edgeR.
+y=DGEList(counts = exp, samples = clinicalTable)
+cpmMin = variables= bco$parametric_domain$cpm$min
+cat("<br>Counts per million:", cpmMin, "<br>")
+# Removing sequences with very low frequency
+keep <- names(which(rowSums(cpm(y)) >= cpmMin))
+y <- y[keep, , keep.lib.sizes=FALSE]
+
+# Normalization
+y <-  (y)
+
+# Estimating dispersion
+y<- estimateGLMRobustDisp(y,design)
+```
+
+### Observing the processed data
+```{r results='hide', message=FALSE, warning=FALSE}
+# Plot Biological Coefficient of Variation
+# "Plot the genewise biological coefficient of variation (BCV) against gene abundance (in log2 counts per million)."
+plotBCV(y)
+
+# Plotting Multidimensional scaling plot of distances between gene expression profiles
+# "Plot samples on a two-dimensional scatterplot so that distances on the plot approximate the typical log2 fold changes between the samples."
+plotMDS(y, col=c('green','purple')[clinicalTable$clark_level], pch=c(21,23,22)[clinicalTable$tumor_tissue_site])
+legend('topright', col=c('green','purple'), legend=levels(clinicalTable$clark_level), pch = 16, cex = 0.7)
+legend('bottomright', legend=levels(clinicalTable$tumor_tissue_site), pch = c(21,23,22), cex = 0.7)
+
+```
+
+## Fitting the model to the processed read count data and conducting statistical tests
+```{r results='hide', message=FALSE, warning=FALSE}
+fit <- glmFit(y, design)
+lrt <- glmLRT(fit, coef=2)
+
+#Visualising the sequences differently expressed between levels III and IV
+plotMD(lrt, main = 'Melanoma Clark Level')
+abline(h=c(-1, 1), col="grey")
+```
+
+```{r}
+res=lrt$table
+res$FDR=p.adjust(res$PValue, method="BH")
+res=res[order(res$FDR),]
+
+#displaying the top 25 results
+res[1:25,]
+
+```
+## Heatmap
+Get FDR from BCO.
+```{r}
+logcpm <- cpm(y, prior.count=2, log=TRUE)
+fdrValue = variables= bco$parametric_domain$fdr$value
+# Filtering the sequences differently expressed
+select=rownames(res)[which(res$FDR<=fdrValue)]
+
+# Applying Euclidean distance to cluster samaples and the 10 genes differently expressed
+pheatmap(logcpm[select,], cluster_rows=T, show_rownames=T,
+         cluster_cols=T, annotation_col=clinicalTable[,c( "clark_level","tumor_tissue_site")], 
+         main="Sequences differently expressed")
+
+# It is possible to observe that the gene expression can separate the majority of samples by Clark Level
+```

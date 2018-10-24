@@ -1,0 +1,25 @@
+X	days_to_birth	gender	prior_dx	history_of_neoadjuvant_treatment	person_neoplasm_cancer_status	vital_status	days_to_last_followup	days_to_death	breslow_depth_value	clark_level	melanoma_ulceration_indicator	year_of_initial_pathologic_diagnosis	age_at_initial_pathologic_diagnosis	pathologic_T	pathologic_N	pathologic_stage	tumor_tissue_site	sample_tissue_site	melanoma_origin_skin_anatomic_site	new_tumor_event_after_initial_treatment	icd_o_3_site	tissue_source_site
+TCGA.BF.A1PX	-20626	MALE	No	No	TUMOR FREE	Dead	[Not Available]	282	12	III	YES	2010	56	T4b	N2a	Stage IIIB	Trunk	Primary Tumor	Non-glabrous skin	NO	C44.9	BF
+TCGA.EB.A431	-12484	MALE	No	No	TUMOR FREE	Alive	52	[Not Applicable]	15	III	YES	2012	34	T4b	N0	Stage IIC	Extremities	Primary Tumor	Non-glabrous skin	NO	C44.9	EB
+TCGA.EB.A44N	-21623	MALE	No	No	TUMOR FREE	Alive	45	[Not Applicable]	5	III	YES	2012	59	T4b	N0	Stage IIC	Extremities	Primary Tumor	Non-glabrous skin	NO	C44.9	EB
+TCGA.EB.A51B	-19645	MALE	No	No	TUMOR FREE	Alive	-5	[Not Applicable]	10	III	YES	2012	53	T4b	NX	Stage IIC	Trunk	Primary Tumor	Non-glabrous skin	NO	C44.6	EB
+TCGA.FS.A1ZE	-14618	MALE	No	No	TUMOR FREE	Alive	1225	[Not Applicable]	5	III	YES	2008	40	T4b	N0	Stage IIC	Trunk	Distant Metastasis	Non-glabrous skin	YES	C44.9	FS
+TCGA.D9.A6EC	-20493	MALE	No	No	TUMOR FREE	Alive	2015	[Not Applicable]	3	III	NO	2008	56	T3a	N1	Stage IIIA	Trunk	Primary Tumor	Non-glabrous skin	NO	C77.3	D9
+TCGA.FS.A1Z0	-11815	FEMALE	No	No	WITH TUMOR	Dead	[Not Available]	6164	0.95	III	NO	1990	32	T1a	N0	Stage IA	Extremities	Distant Metastasis	Non-glabrous skin	YES	C44.9	FS
+TCGA.BF.AAP6	-20384	MALE	No	No	TUMOR FREE	Alive	15	[Not Applicable]	20	IV	YES	2013	55	T4b	N2	Stage III	Extremities	Primary Tumor	Non-glabrous skin	NO	C44.7	BF
+TCGA.BF.AAP8	-21414	MALE	No	No	TUMOR FREE	Alive	14	[Not Applicable]	6	IV	YES	2013	58	T4b	N0	Stage IIC	Extremities	Primary Tumor	Non-glabrous skin	NO	C44.6	BF
+TCGA.EB.A1NK	-17569	MALE	No	No	TUMOR FREE	Alive	16	[Not Applicable]	8	IV	YES	2010	48	T4b	N0	Stage IIC	Extremities	Primary Tumor	Non-glabrous skin	NO	C44.9	EB
+TCGA.EB.A3HV	-13712	MALE	No	No	WITH TUMOR	Alive	39	[Not Applicable]	13	IV	YES	2011	37	T4b	N0	Stage IIC	Trunk	Primary Tumor	Non-glabrous skin	NO	C44.9	EB
+TCGA.EB.A4XL	-20486	FEMALE	No	No	TUMOR FREE	Alive	0	[Not Applicable]	7	IV	YES	2012	56	T4b	NX	Stage IIC	Extremities	Primary Tumor	Non-glabrous skin	NO	C44.9	EB
+TCGA.EB.A6R0	-21367	FEMALE	No	No	TUMOR FREE	Alive	-2	[Not Applicable]	10	IV	YES	2012	58	T4b	N0	Stage IIC	Trunk	Primary Tumor	Non-glabrous skin	NO	C44.9	EB
+TCGA.FR.A728	-19936	FEMALE	No	No	WITH TUMOR	Alive	247	[Not Applicable]	12	IV	YES	2013	54	T4b	N2a	Stage IIIB	Extremities	Primary Tumor	Non-glabrous skin	YES	C44.6	FR
+TCGA.FS.A1ZA	-16705	FEMALE	No	No	WITH TUMOR	Dead	[Not Available]	843	4.5	IV	YES	2003	45	T4b	N2c	Stage IIIB	Trunk	Distant Metastasis	Non-glabrous skin	YES	C77.9	FS
+TCGA.FS.A1ZN	-15890	MALE	No	No	WITH TUMOR	Dead	[Not Available]	730	8	IV	YES	2002	43	T4b	N1a	Stage IIIA	Trunk	Primary Tumor	Non-glabrous skin	YES	C44.9	FS
+TCGA.GF.A769	-14304	MALE	No	No	WITH TUMOR	Dead	[Not Available]	1070	74	IV	YES	2010	39	T4b	NX	Stage IIC	Extremities	Primary Tumor	Non-glabrous skin	NO	C44.7	GF
+TCGA.D3.A8GK	-16569	MALE	No	No	TUMOR FREE	Alive	4757	[Not Applicable]	2.6	IV	NO	2000	45	T3a	N0	Stage IIA	Extremities	Distant Metastasis	Non-glabrous skin	YES	C49.5	D3
+TCGA.DA.A1I5	-10017	FEMALE	No	No	TUMOR FREE	Alive	3265	[Not Applicable]	0.6	IV	NO	2003	27	T1a	N0	Stage IV	Head and Neck	Distant Metastasis	Non-glabrous skin	YES	C44.9	DA
+TCGA.DA.A1IA	-11744	FEMALE	No	No	WITH TUMOR	Dead	[Not Available]	2005	1.3	IV	NO	2005	32	T2a	N1b	Stage IIIB	Extremities	Distant Metastasis	Non-glabrous skin	NO	C71.1	DA
+TCGA.ER.A2ND	-20867	FEMALE	No	No	WITH TUMOR	Dead	[Not Available]	710	1	IV	NO	2004	57	T1b	N3	Stage IIIC	Extremities	Distant Metastasis	Non-glabrous skin	NO	C44.5	ER
+TCGA.FS.A1YY	-20396	FEMALE	No	No	WITH TUMOR	Dead	[Not Available]	6953	2.7	IV	NO	1987	55	T3a	N0	Stage IIA	Trunk	Distant Metastasis	Non-glabrous skin	YES	C76.2	FS
+TCGA.GN.A4U3	-11294	MALE	No	No	WITH TUMOR	Alive	3288	[Not Applicable]	3	IV	NO	2004	30	T3a	N1a	Stage III	Extremities	Distant Metastasis	Non-glabrous skin	YES	C71.1	GN
+TCGA.YD.A89C	-15804	FEMALE	No	No	TUMOR FREE	Alive	210	[Not Applicable]	1	IV	NO	2013	43	T1a	NX	Stage IA	Extremities	Distant Metastasis	Non-glabrous skin	YES	C22.0	YD
