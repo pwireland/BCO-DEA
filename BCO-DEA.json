@@ -186,10 +186,8 @@
                         }
                       }
                     ], 
-                    "input_uri_list": [
-                    ], 
-                    "output_uri_list": [
-                    ]
+                    "input_uri_list": null, 
+                    "output_uri_list": null
                 },
                 {
                     "step_number": "3", 
@@ -197,11 +195,8 @@
                     "description": "Cluster genes", 
                     "version": "1.3", 
                     "prerequisites": null, 
-                    "input_uri_list": [
-                    ], 
-                    "output_uri_list": [
-                        }
-                    ]
+                    "input_uri_list": null, 
+                    "output_uri_list": null
                 }
             ]
         }
